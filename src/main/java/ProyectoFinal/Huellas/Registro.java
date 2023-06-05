@@ -3,14 +3,14 @@ package ProyectoFinal.Huellas;
 public class Registro {
 	private int idRegistro;
 	private String fechaAdopcion;
-	private Persona persona;
+	private Adoptante adoptante;
 	private Animales animal;
 	
 	public Registro() {}
-	public Registro(int idRegistro, String fechaAdopcion, Persona persona, Animales animal) {
+	public Registro(int idRegistro, String fechaAdopcion, Adoptante adoptante, Animales animal) {
 		this.idRegistro = idRegistro;
 		this.fechaAdopcion = fechaAdopcion;
-		this.persona = persona;
+		this.adoptante = adoptante;
 		this.animal = animal;
 	}
 
@@ -28,23 +28,22 @@ public class Registro {
 	public void setFechaAdopcion(String fechaAdopcion) {
 		this.fechaAdopcion = fechaAdopcion;
 	}
-	public Persona getPersona() {
-		return persona;
-	}
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
 	public Animales getAnimal() {
 		return animal;
 	}
 	public void setAnimal(Animales animal) {
 		this.animal = animal;
 	}
-	
+	public Adoptante getAdoptante() {
+		return adoptante;
+	}
+	public void setAdoptante(Adoptante adoptante) {
+		this.adoptante = adoptante;
+	}
 	
 	@Override
 	public String toString() {
-		return "Registro [idRegistro=" + idRegistro + ", fechaAdopcion=" + fechaAdopcion + ", persona=" + persona
+		return "Registro [idRegistro=" + idRegistro + ", fechaAdopcion=" + fechaAdopcion + ", adoptante =" + adoptante
 				+ ", animal=" + animal + "]";
 	}
 	

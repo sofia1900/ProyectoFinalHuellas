@@ -6,22 +6,15 @@ public class Persona {
 	protected String nombre;
 	protected String apellidos;
 	protected String dni;
-	protected String fechaNac;
-	protected String direccion;
-	
 	
 	
 	public Persona() {}
-	public Persona(int id, String nombre, String apellidos, String dni, String fechaNac, String direccion) {
+	public Persona(int id, String nombre, String apellidos, String dni) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;
-		this.fechaNac = fechaNac;
-		this.direccion = direccion;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -47,22 +40,10 @@ public class Persona {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getFechaNac() {
-		return fechaNac;
-	}
-	public void setFechaNac(String fechaNac) {
-		this.fechaNac = fechaNac;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
+
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + ", fechaNac="
-				+ fechaNac + ", direccion=" + direccion + "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + "]";
 	}
 	
 	

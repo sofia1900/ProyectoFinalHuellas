@@ -7,9 +7,8 @@ public class Socio extends Persona {
 	public Socio() {}
 	
 
-	public Socio(int id, String nombre, String apellidos, String dni, String fechaNac, String direccion,
-			String cuentaBancaria) {
-		super(id, nombre, apellidos, dni, fechaNac, direccion);
+	public Socio(int id, String nombre, String apellidos, String dni, String cuentaBancaria) {
+		super(id, nombre, apellidos, dni);
 		this.cuentaBancaria = cuentaBancaria;
 	}
 
@@ -27,7 +26,7 @@ public class Socio extends Persona {
 	@Override
 	public String toString() {
 		return "Socio [cuentaBancaria=" + cuentaBancaria + ", id=" + id + ", nombre=" + nombre + ", apellidos="
-				+ apellidos + ", dni=" + dni + ", fechaNac=" + fechaNac + ", direccion=" + direccion + "]";
+				+ apellidos + ", dni=" + dni + "]";
 	}
 	
 	
