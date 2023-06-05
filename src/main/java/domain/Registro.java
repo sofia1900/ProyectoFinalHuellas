@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package domain;
 
 public class Registro {
 	private int idRegistro;

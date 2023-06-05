@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package presentation;
 
 import java.util.Scanner;
 

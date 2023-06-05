@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package domain;
 
 enum Sexo {H, M}
 

@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package domain;
 
 public class Perro extends Animales {
 	private String raza;
