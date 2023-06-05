@@ -12,6 +12,8 @@ public class AppHuellas {
 		
 		int opc;
 		boolean salir = false ;
+		AddGato addGato = new AddGato ();
+		AddPerro addPerro = new AddPerro();
 		
 		do {
 			
@@ -31,9 +33,12 @@ public class AppHuellas {
 				
 				switch(opc) {
 				case 1:
-					
+					//PREGUNTAR SI ES UN GATO O UN PERRO
+					addGato.execute(null);
+					addPerro.execute(null);
 					break;
 				case 2:
+					//PREGUNTAR SI ES UN GATO O UN PERRO
 					break;
 				case 3:
 					break;

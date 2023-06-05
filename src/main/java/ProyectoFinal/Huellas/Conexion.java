@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Conexion {
 	
@@ -15,7 +17,7 @@ public class Conexion {
 	//Patron SINGLETON
 	public static Conexion instance = null;
 	
-	//CONEXION Y CIERRE
+	//CONEXION Y CIERRE DE LA CONEXION
 	private Conexion () throws SQLException {
 
 		try {
@@ -33,19 +35,8 @@ public class Conexion {
 		}
 	}
 	
-	//AÑADIR ANIMAL (PERROS Y GATOS)
-	public void anidirAnimal (Animal a) throws SQLException {
-		String sql = "INSERT INTO animal (nombre, fecha_nacimiento, sexo) VALUES (?, ?, ?)";
-		
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setString(1, a.getNombre());
-		stat.setString(2, a.getFechaNac());
-		stat.setString(3, a.getSexo());
-		
-		stat.executeUpdate();
-		stat.close();
-	}
-	public int devolverId () throws SQLException {
+	//DEVOLVER ULTIMO ID
+	private int devolverId () throws SQLException {
 		String sql = "SELECT last_insert_id()";
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		ResultSet result = stat.executeQuery();
@@ -57,8 +48,21 @@ public class Conexion {
 		
 		return id;
 	}
-	public void aniadirGato (Gato g) throws SQLException {
-		anidirAnimal(g);
+	
+	//AÑADIR ANIMAL (PERROS Y GATOS)
+	private void addAnimal (Animal a) throws SQLException {
+		String sql = "INSERT INTO animal (nombre, fecha, sexo) VALUES (?, ?, ?)";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setString(1, a.getNombre());
+		stat.setString(2, a.getFechaNac());
+		stat.setString(3, a.getSexo());
+		
+		stat.executeUpdate();
+		stat.close();
+	}
+	public void addGato (Gato g) throws SQLException {
+		addAnimal(g);
 		 
 		 int id = devolverId();
 		 String sql = "INSERT INTO gato VALUES (?, ?)";
@@ -71,8 +75,8 @@ public class Conexion {
 		stat.close();
 		
 	}
-	public void aniadirPerro (Perro p) throws SQLException {
-		anidirAnimal(p);
+	public void addPerro (Perro p) throws SQLException {
+		addAnimal(p);
 		 
 		 int id = devolverId();
 		 String sql = "INSERT INTO perro VALUES (?, ?, ?)";
@@ -89,18 +93,73 @@ public class Conexion {
 	
 	//ELIMINAR ANIMAL 
 		//eliminar de gato/perro
+	public void eliminarGato (int id) throws SQLException {
+		String sql = "DELETE INTO gato VALUES WHILE id = ?";
+			
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		stat.executeUpdate();
+		stat.close();
+		
+		eliminarAnimal(id);
+	}
+	public void eliminarPerro (int id) throws SQLException {
+		String sql = "DELETE INTO perro VALUES WHILE id = ?";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		stat.executeUpdate();
+		stat.close();
+		
+		eliminarAnimal(id);
+	}
 		//eliminar de animal
+	private void eliminarAnimal (int id) throws SQLException {
+		String sql = "DELETE INTO animal VALUES WHILE id = ?";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		stat.executeUpdate();
+		stat.close();
+		
+	}
 	
 	//LISTAR GATOS
+	public List<Gato> listarGatos (){
+		List<Gato> gatos = new ArrayList<>();
+		
+		return gatos;
+	}
 	
 	//LISTAR PERROS
+	public List<Perro> listarPerros (){
+		List<Perro> perros = new ArrayList<>();
+		
+		return perros;
+	}
 
 	//AÑADIR PERSONA - ADOPTANTE
+	private void addPersona() {
+		
+	}
+	public void addAdoptante() {
+		
+	}
 	
 	//CREAR UNA ADOPCION
+	public void addAdopcion() {
+		
+	}
 	
 	//LISTAR ADOPCIONES
-	
+	public List<Registro> listarAdocion (){
+		List<Registro> adopciones = new ArrayList<>();
+		
+		return adopciones;
+	}
 	
 	
 	//Patron SINGLETON
