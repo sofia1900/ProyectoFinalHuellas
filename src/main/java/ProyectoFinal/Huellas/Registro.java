@@ -1,13 +1,13 @@
-package domain;
+package ProyectoFinal.Huellas;
 
 public class Registro {
 	private int idRegistro;
 	private String fechaAdopcion;
 	private Adoptante adoptante;
-	private Animales animal;
+	private Animal animal;
 	
 	public Registro() {}
-	public Registro(int idRegistro, String fechaAdopcion, Adoptante adoptante, Animales animal) {
+	public Registro(int idRegistro, String fechaAdopcion, Adoptante adoptante, Animal animal) {
 		this.idRegistro = idRegistro;
 		this.fechaAdopcion = fechaAdopcion;
 		this.adoptante = adoptante;
@@ -28,10 +28,10 @@ public class Registro {
 	public void setFechaAdopcion(String fechaAdopcion) {
 		this.fechaAdopcion = fechaAdopcion;
 	}
-	public Animales getAnimal() {
+	public Animal getAnimal() {
 		return animal;
 	}
-	public void setAnimal(Animales animal) {
+	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
 	public Adoptante getAdoptante() {

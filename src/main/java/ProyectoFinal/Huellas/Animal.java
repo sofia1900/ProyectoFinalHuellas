@@ -1,18 +1,16 @@
-package domain;
+package ProyectoFinal.Huellas;
 
-enum Sexo {H, M}
-
-public class Animales {
+public class Animal {
 	
 	protected int id;
 	protected String nombre;
 	protected String fechaNac;
-	protected Sexo sexo;
+	protected String sexo;
 	
-	public Animales() {}
+	public Animal() {}
 	
 	
-	public Animales(int id, String nombre, String fechaNac, Sexo sexo) {
+	public Animal(int id, String nombre, String fechaNac, String sexo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.fechaNac = fechaNac;
@@ -38,10 +36,10 @@ public class Animales {
 	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
-	public Sexo getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(Sexo sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 

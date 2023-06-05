@@ -1,11 +1,12 @@
-package presentation;
+package ProyectoFinal.Huellas;
 
 import java.util.Scanner;
+
+enum Sexo {H, M};
 
 public class AppHuellas {
 	
 	static Scanner sc = new Scanner (System.in);
-	
 	
 	public static void main(String[] args) {
 		

@@ -1,11 +1,11 @@
-package domain;
+package ProyectoFinal.Huellas;
 
-public class Gato extends Animales{
+public class Gato extends Animal{
 	
 	private boolean virus;
 	
 	public Gato() {}
-	public Gato(int id, String nombre, String fechaNac, Sexo sexo, boolean virus) {
+	public Gato(int id, String nombre, String fechaNac, String sexo, boolean virus) {
 		super(id, nombre, fechaNac, sexo);
 		this.virus=virus;
 	}

@@ -1,11 +1,11 @@
-package domain;
+package ProyectoFinal.Huellas;
 
-public class Perro extends Animales {
+public class Perro extends Animal {
 	private String raza;
 	private boolean amigable;
 	
 	public Perro() {}
-	public Perro(int id, String nombre, String fechaNac, Sexo sexo,String raza, boolean amigable) {
+	public Perro(int id, String nombre, String fechaNac, String sexo,String raza, boolean amigable) {
 		super(id, nombre, fechaNac, sexo);
 		this.raza=raza;
 		this.amigable=amigable;
