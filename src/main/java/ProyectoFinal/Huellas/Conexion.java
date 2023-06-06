@@ -143,13 +143,12 @@ public class Conexion {
 
 	//AÑADIR PERSONA - ADOPTANTE
 	private void addPersona(Persona p) throws SQLException {
-		String sql = "INSERT INTO Persona (id, nombre, apellidos, dni) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO Persona (nombre, apellidos, dni) VALUES (?, ?, ?)";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, p.getId());
-		stat.setString(2, p.getNombre());
-		stat.setString(3, p.getApellidos());
-		stat.setString(4, p.getDni());
+		stat.setString(1, p.getNombre());
+		stat.setString(2, p.getApellidos());
+		stat.setString(3, p.getDni());
 		
 		stat.executeUpdate();
 		stat.close();
@@ -157,12 +156,11 @@ public class Conexion {
 	}
 	public void addAdoptante(Adoptante a) throws SQLException {
 		addPersona(a);
-		String sql = "INSERT INTO Adoptante (id, fechaNac, Direccion) VALUES (?,?,?,?)";
+		String sql = "INSERT INTO Adoptante (fechaNac, Direccion) VALUES (?,?,?)";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, a.getId());
-		stat.setString(2, a.getFechaNac());
-		stat.setString(3, a.getDireccion());
+		stat.setString(1, a.getFechaNac());
+		stat.setString(2, a.getDireccion());
 		
 		stat.executeUpdate();
 		stat.close();
