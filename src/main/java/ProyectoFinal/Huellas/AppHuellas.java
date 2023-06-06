@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-enum Sexo {H, M};
+
 
 public class AppHuellas {
+	
+	static AddGato addGatoUseCase = new AddGato ();
+	static AddPerro addPerroUseCase = new AddPerro();
+	static EliminarGato delG = new EliminarGato();
+	static EliminarPerro delP = new EliminarPerro();
 	
 	static Scanner sc = new Scanner (System.in);
 	
@@ -54,10 +59,15 @@ public class AppHuellas {
 					System.out.println("1. Gato");
 					System.out.println("2. Perro");
 					opc2 = sc.nextInt();
+					System.out.println("Introduce el ID del animal");
+					int id = sc.nextInt();
+					
 					switch (opc2) {
 					case 1:
+						delG.execute(id);
 						break;
 					case 2:
+						delP.execute(id);
 						break;
 					default:
 						System.out.println("OPCION NO VALIDA");
@@ -125,8 +135,7 @@ public class AppHuellas {
 		
 		System.out.println("Introduce true si el animal tiene virus o false si no lo tiene");
 		boolean virus = sc.nextBoolean();
-		
-		AddGato addGatoUseCase = new AddGato ();
+	
 		Gato gato = new Gato (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), virus);
 		
 		addGatoUseCase.execute(gato);
@@ -139,7 +148,6 @@ public class AppHuellas {
 		System.out.println("Introduce true si el animal el amigable o false si no lo es");
 		boolean amigable = sc.nextBoolean();
 		
-		AddPerro addPerroUseCase = new AddPerro();
 		Perro perro = new Perro (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), raza, amigable);
 		
 		addPerroUseCase.execute(perro);
