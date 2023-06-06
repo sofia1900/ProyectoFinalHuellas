@@ -94,7 +94,7 @@ public class Conexion {
 	//ELIMINAR ANIMAL 
 		//eliminar de gato/perro
 	public void eliminarGato (int id) throws SQLException {
-		String sql = "DELETE INTO gato VALUES WHILE id = ?";
+		String sql = "DELETE FROM gato WHERE id = ?";
 			
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setInt(1, id);
@@ -105,7 +105,7 @@ public class Conexion {
 		eliminarAnimal(id);
 	}
 	public void eliminarPerro (int id) throws SQLException {
-		String sql = "DELETE INTO perro VALUES WHILE id = ?";
+		String sql = "DELETE FROM perro WHERE id = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setInt(1, id);
@@ -117,7 +117,7 @@ public class Conexion {
 	}
 		//eliminar de animal
 	private void eliminarAnimal (int id) throws SQLException {
-		String sql = "DELETE INTO animal VALUES WHILE id = ?";
+		String sql = "DELETE FROM animal WHERE id = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setInt(1, id);
@@ -155,10 +155,97 @@ public class Conexion {
 	}
 	
 	//LISTAR ADOPCIONES
-	public List<Registro> listarAdocion (){
+	public List<Registro> listarAdocion () throws SQLException{
+		String sql = "SELECT * FROM registro";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		ResultSet result = stat.executeQuery();
+		
+		int id;
+		String fecha;
+		int persona;
+		int animal;
+		
+		Registro r;
 		List<Registro> adopciones = new ArrayList<>();
 		
+		while (result.next()) {
+			id = result.getInt("id");
+			fecha = result.getString("fecha");
+			persona = result.getInt("persona");
+			animal = result.getInt("animal");
+			
+			Adoptante adoptante = buscarAdoptante(persona);
+			Animal animalObjeto = buscarAnimal(animal);
+			
+			r = new Registro (id, fecha, adoptante, animalObjeto);
+			adopciones.add(r);
+			
+		}
+		
 		return adopciones;
+	}
+	
+	//BUSCAR PERSONA
+	private Persona buscarPersona (int id) throws SQLException {
+		String sql = "SELECT * FROM persona WHERE id = ?";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		ResultSet result = stat.executeQuery();
+		
+		result.next();
+		int idP = result.getInt("id");
+		String nombre = result.getString("nombre");
+		String apellidos = result.getString("apellidos");
+		String dni = result.getString("dni");
+		
+		Persona p = new Persona(idP, nombre, apellidos, dni);
+		return p;
+		
+	}
+	//BUSCAR ADOPTANTE
+	private Adoptante buscarAdoptante (int id) throws SQLException {
+		
+		Persona p = buscarPersona (id);
+		
+		String sql = "SELECT * FROM adoptante WHERE id = ?";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		ResultSet result = stat.executeQuery();
+		
+		result.next();
+		int idA = result.getInt("id");
+		String fecha = result.getString("fecha_nacimiento");
+		String direccion = result.getString("direccion");
+		
+		Adoptante adopt = new Adoptante (p.getId(), p.getNombre(), p.getApellidos(), p.getDni(), fecha, direccion);
+		
+		return adopt;
+		
+	}
+	
+	//BUSCAR ANIMAL
+	private Animal buscarAnimal (int id) throws SQLException {
+		String sql = "SELECT * FROM animal WHERE id = ?";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setInt(1, id);
+		
+		ResultSet result = stat.executeQuery();
+		
+		result.next();
+		int idA = result.getInt("id");
+		String nombre = result.getString("nombre");
+		String fecha = result.getString("fecha");
+		String sexo = result.getString("sexo");
+		
+		Animal animal = new Animal(idA, nombre, fecha, sexo);
+		return animal;
+		
 	}
 	
 	
