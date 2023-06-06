@@ -15,7 +15,7 @@ public class Conexion {
 	private static final String CLASE = "com.mysql.cj.jdbc.Driver";
 	
 	//Patron SINGLETON
-	public static Conexion instance = null;
+	private static Conexion instance = null;
 	
 	//CONEXION Y CIERRE DE LA CONEXION
 	private Conexion () throws SQLException {
@@ -128,16 +128,40 @@ public class Conexion {
 	}
 	
 	//LISTAR GATOS
-	public List<Gato> listarGatos (){
-		List<Gato> gatos = new ArrayList<>();
+	public List<Gato> listarGatos () throws SQLException{
+		String sql ="SELECT*FROM gato";
+		PreparedStatement stat = conexion.prepareStatement(sql);
 		
+		ResultSet resultSet=stat.executeQuery(sql);
+		List<Gato> gatos = new ArrayList<>();
+		  while (resultSet.next()) {
+			  Gato gato = new Gato();
+			  gato.setId(resultSet.getInt("id"));
+			  gato.setVirus(resultSet.getBoolean("virus"));
+			  gatos.add(gato);
+			  }
+			resultSet.close();
+			stat.close();
+		  
 		return gatos;
 	}
 	
 	//LISTAR PERROS
-	public List<Perro> listarPerros (){
-		List<Perro> perros = new ArrayList<>();
+	public List<Perro> listarPerros () throws SQLException{
+		String sql ="SELECT*FROM perro";
+		PreparedStatement stat = conexion.prepareStatement(sql);
 		
+		ResultSet resultSet = stat.executeQuery(sql);
+		List<Perro> perros = new ArrayList<>();
+		while(resultSet.next()) {
+			Perro perro = new Perro();
+			perro.setId(resultSet.getInt("id"));
+			perro.setRaza(resultSet.getString("raza"));
+			perro.setAmigable(resultSet.getBoolean("amigable"));
+			perros.add(perro);
+		}
+		resultSet.close();
+		stat.close();
 		return perros;
 	}
 
@@ -155,7 +179,7 @@ public class Conexion {
 	}
 	
 	//LISTAR ADOPCIONES
-	public List<Registro> listarAdocion (){
+	public List<Registro> listarAdopcion (){
 		List<Registro> adopciones = new ArrayList<>();
 		
 		return adopciones;

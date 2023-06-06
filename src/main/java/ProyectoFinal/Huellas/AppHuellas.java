@@ -1,5 +1,7 @@
 package ProyectoFinal.Huellas;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 enum Sexo {H, M};
@@ -7,13 +9,14 @@ enum Sexo {H, M};
 public class AppHuellas {
 	
 	static Scanner sc = new Scanner (System.in);
-	
 	public static void main(String[] args) {
 		
 		int opc;
 		boolean salir = false ;
 		AddGato addGato = new AddGato ();
 		AddPerro addPerro = new AddPerro();
+		ObtenerGatos listarGatos = new ObtenerGatos();
+		ObtenerPerros listarPerros = new ObtenerPerros();
 		
 		do {
 			
@@ -41,8 +44,12 @@ public class AppHuellas {
 					//PREGUNTAR SI ES UN GATO O UN PERRO
 					break;
 				case 3:
+					//LISTAR GATOS
+					listarGatos.execute(null);
 					break;
 				case 4:
+					//LISTAR PERROS
+					listarPerros.execute(null);
 					break;
 				case 5:
 					break;
