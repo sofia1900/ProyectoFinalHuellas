@@ -11,11 +11,10 @@ import java.util.List;
 public class Conexion {
 	
 	private Connection conexion;
-	
 	private static final String CLASE = "com.mysql.cj.jdbc.Driver";
 	
 	//Patron SINGLETON
-	public static Conexion instance = null;
+	private static Conexion instance = null;
 	
 	//CONEXION Y CIERRE DE LA CONEXION
 	private Conexion () throws SQLException {
