@@ -1,5 +1,7 @@
 package ProyectoFinal.Huellas;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 enum Sexo {H, M};
@@ -11,9 +13,8 @@ public class AppHuellas {
 	public static void main(String[] args) {
 		
 		int opc;
+		int opc2;
 		boolean salir = false ;
-		AddGato addGato = new AddGato ();
-		AddPerro addPerro = new AddPerro();
 		
 		do {
 			
@@ -34,11 +35,33 @@ public class AppHuellas {
 				switch(opc) {
 				case 1:
 					//PREGUNTAR SI ES UN GATO O UN PERRO
-					addGato.execute(null);
-					addPerro.execute(null);
+					System.out.println("1. Gato");
+					System.out.println("2. Perro");
+					opc2 = sc.nextInt();
+					switch (opc2) {
+					case 1:
+						addGato();
+						break;
+					case 2:
+						addPerro();
+						break;
+					default:
+						System.out.println("OPCION NO VALIDA");
+					}
 					break;
 				case 2:
 					//PREGUNTAR SI ES UN GATO O UN PERRO
+					System.out.println("1. Gato");
+					System.out.println("2. Perro");
+					opc2 = sc.nextInt();
+					switch (opc2) {
+					case 1:
+						break;
+					case 2:
+						break;
+					default:
+						System.out.println("OPCION NO VALIDA");
+					}
 					break;
 				case 3:
 					break;
@@ -49,6 +72,8 @@ public class AppHuellas {
 				case 6:
 					break;
 				case 7:
+					break;
+				case 8:
 					salir = true;
 					break;
 				default:
@@ -63,6 +88,61 @@ public class AppHuellas {
 			
 			
 		}while (salir == false);
+		
+	}
+	
+	private static boolean validarSexo (String sexo) {
+		if (sexo.equals("H") || sexo.equals("M")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	private static List<String> addAnimal() {
+		System.out.println("Introduce el nombre del animal");
+		String nombre = sc.next();
+		System.out.println("Introduce la fecha de nacimiento");
+		String fecha = sc.next();
+		String sexo;
+		boolean ok;
+		do {
+			System.out.println("Introduce el sexo del animal: 'M' o 'H'");
+			sexo = sc.next();
+			ok = validarSexo(sexo);
+		}while (ok == false);
+		
+		
+		List<String> datosAnimal = new ArrayList<>();
+		datosAnimal.add(nombre);
+		datosAnimal.add(fecha);
+		datosAnimal.add(sexo);
+		
+		return datosAnimal;
+		
+	}
+	public static void addGato () {
+		List<String> datosAnimal = addAnimal();
+		
+		System.out.println("Introduce true si el animal tiene virus o false si no lo tiene");
+		boolean virus = sc.nextBoolean();
+		
+		AddGato addGatoUseCase = new AddGato ();
+		Gato gato = new Gato (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), virus);
+		
+		addGatoUseCase.execute(gato);
+	}
+	public static void addPerro () {
+		List<String> datosAnimal = addAnimal();
+		
+		System.out.println("Introduce la raza del perro");
+		String raza = sc.nextLine();
+		System.out.println("Introduce true si el animal el amigable o false si no lo es");
+		boolean amigable = sc.nextBoolean();
+		
+		AddPerro addPerroUseCase = new AddPerro();
+		Perro perro = new Perro (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), raza, amigable);
+		
+		addPerroUseCase.execute(perro);
 	}
 
 }
