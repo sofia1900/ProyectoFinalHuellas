@@ -218,6 +218,7 @@ public class Conexion {
 		ResultSet result = stat.executeQuery();
 		
 		result.next();
+		
 		int idA = result.getInt("id");
 		String fecha = result.getString("fecha_nacimiento");
 		String direccion = result.getString("direccion");
