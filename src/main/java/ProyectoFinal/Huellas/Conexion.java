@@ -142,15 +142,42 @@ public class Conexion {
 	}
 
 	//AÑADIR PERSONA - ADOPTANTE
-	private void addPersona() {
+	private void addPersona(Persona p) throws SQLException {
+		String sql = "INSERT INTO persona (nombre, apellidos, dni) VALUES (?, ?, ?)";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setString(1, p.getNombre());
+		stat.setString(2, p.getApellidos());
+		stat.setString(3, p.getDni());
+		
+		stat.executeUpdate();
+		stat.close();
 		
 	}
-	public void addAdoptante() {
+	public void addAdoptante(Adoptante a) throws SQLException {
+		addPersona(a);
+		String sql = "INSERT INTO adoptante (fechaNac, Direccion) VALUES (?,?,?)";
 		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setString(1, a.getFechaNac());
+		stat.setString(2, a.getDireccion());
+		
+		stat.executeUpdate();
+		stat.close();
 	}
 	
 	//CREAR UNA ADOPCION
-	public void addAdopcion() {
+	public void addAdopcion(Registro r) throws SQLException {
+		String sql = "INSERT INTO registro (fecha, persona, animal) VALUES (?,?,?)";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		stat.setString(1,r.getFechaAdopcion());
+		stat.setInt(2, r.getAdoptante().getId());
+		stat.setInt(3, r.getAnimal().getId());
+		
+		stat.execute();
+		stat.close();
+
 		
 	}
 	
