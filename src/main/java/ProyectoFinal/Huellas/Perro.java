@@ -4,7 +4,7 @@ public class Perro extends Animal {
 	private String raza;
 	private boolean amigable;
 	
-	public Perro() {}
+	public Perro(Perro perro, String raza2, boolean amigable2) {}
 	public Perro(int id, String nombre, String fechaNac, String sexo,String raza, boolean amigable) {
 		super(id, nombre, fechaNac, sexo);
 		this.raza=raza;
