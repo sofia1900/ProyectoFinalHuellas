@@ -125,56 +125,8 @@ public class Conexion {
 		stat.close();
 		
 	}
+		
 	
-	//LISTAR GATOS
-	public List<Gato> listarGatos () throws SQLException{
-		String sql ="SELECT*FROM gato";
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		
-		ResultSet resultSet=stat.executeQuery(sql);
-		List<Gato> gatos = new ArrayList<>();
-		Gato gato = new Gato();
-		  while (resultSet.next()) {
-			  gato.setId(resultSet.getInt("id"));
-			  gato.setVirus(resultSet.getBoolean("virus"));
-			  gatos.add(gato);
-			  }
-		
-			resultSet.close();
-			stat.close();
-		return gatos;
-			
-	}
-		
-	//LISTAR PERROS
-	public List<Perro> listarPerros () throws SQLException{
-		String sql ="SELECT*FROM perro";
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		ResultSet result = stat.executeQuery();
-		
-		int id;
-		String raza;
-		boolean amigable;
-		
-		Registro r;
-		List<Perro> perros = new ArrayList<>();
-		
-		while (result.next()) {
-			id = result.getInt("id");
-			raza= result.getString("raza");
-			amigable = result.getBoolean("amigable");
-			
-			Perro p = buscarPerro(id);
-			Animal animalObjeto = buscarAnimal(perro);
-		
-			r= new Perro(id,raza,amigable);
-					
-		}
-		
-		return perros;
-		
-	}
-
 	//AÑADIR PERSONA - ADOPTANTE
 	private void addPersona(Persona p) throws SQLException {
 		String sql = "INSERT INTO persona (nombre, apellidos, dni) VALUES (?, ?, ?)";
@@ -290,6 +242,60 @@ public class Conexion {
 		
 	}
 	
+	//listar perro
+	public List<Perro> listarPerros() throws SQLException{
+		String sql = "SELECT * FROM perro";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		ResultSet result = stat.executeQuery();
+		
+		int id;
+		String raza;
+		boolean amigable;
+		int animal = 0;
+		
+		List<Perro> perros = new ArrayList<>();
+		
+		while (result.next()) {
+			id = result.getInt("id");
+			raza = result.getString("raza");
+			amigable = result.getBoolean("amigable");
+			
+			
+			Perro perro = buscarPerro(animal);
+			perros.add(perro);
+			
+		}
+		
+		return perros;
+	}
+	//listar gatos
+	public List<Gato> listarGatos() throws SQLException{
+		
+		String sql = "SELECT * FROM gato";
+		
+		PreparedStatement stat = conexion.prepareStatement(sql);
+		ResultSet result = stat.executeQuery();
+		
+		int id;
+		boolean virus;
+		int gato = 0;
+		
+		List<Gato> gatos = new ArrayList<>();
+		
+		while (result.next()) {
+			id = result.getInt("id");
+			virus = result.getBoolean("virus");
+			
+		Gato gatito = buscarGato(gato);
+		gatos.add(gatito);
+		
+		}
+			return gatos;
+		
+		
+	}
+	
 	//BUSCAR ANIMAL
 	private Animal buscarAnimal (int id) throws SQLException {
 		String sql = "SELECT * FROM animal WHERE id = ?";
@@ -312,7 +318,7 @@ public class Conexion {
 	
 	private Perro buscarPerro(int id) throws SQLException{
 		
-		Animal animal = buscarAnimal (id);
+		Animal animal = buscarAnimal(id);
 		
 		String sql = "SELECT * FROM perro WHERE id = ?";
 		
@@ -325,29 +331,26 @@ public class Conexion {
 		int idP = result.getInt("id");
 		String raza = result.getString("raza");
 		boolean amigable = result.getBoolean("amigable");
-		Perro p = new Perro (idP, animal.getNombre(), animal.getFechaNac(), animal.getSexo(), raza, amigable);
-	 
+		
+		Perro p = new Perro(animal.getId(),animal.getNombre(),animal.getFechaNac(),animal.getSexo(),raza,amigable);
 		
 		return p;
 	}
 	private Gato buscarGato(int id) throws SQLException{
-		Animal animal = buscarAnimal (id);
 		
+		Animal animal = buscarAnimal(id);
 		String sql = "SELECT * FROM gato WHERE id = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setInt(1, id);
 		
 		ResultSet result = stat.executeQuery();
-		
 		result.next();
 		
-		int idA = result.getInt("id");
-		String fecha = result.getString("fecha_nacimiento");
-		String direccion = result.getString("direccion");
+		int idGato = result.getInt("id");
+		boolean virus = result.getBoolean("virus");
 		
-		Gato g = new Gato(); 
-		
+		Gato g = new Gato(animal.getId(),animal.getNombre(),animal.getFechaNac(),animal.getSexo(),virus);
 		return g;
 		
 	}

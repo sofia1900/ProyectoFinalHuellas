@@ -3,7 +3,7 @@ package ProyectoFinal.Huellas;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ObtenerPerros {
+public class GetPerros {
 
 	private Conexion bd = Conexion.getInstance();
 	

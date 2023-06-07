@@ -12,6 +12,9 @@ public class AppHuellas {
 	static AddPerro addPerroUseCase = new AddPerro();
 	static EliminarGato delG = new EliminarGato();
 	static EliminarPerro delP = new EliminarPerro();
+	static GetGatos getGatos = new GetGatos();
+	static GetPerros getPerros = new GetPerros();
+	
 	
 	static Scanner sc = new Scanner (System.in);
 	
@@ -74,8 +77,14 @@ public class AppHuellas {
 					}
 					break;
 				case 3:
+					List<Gato> gatos = new ArrayList<>();
+					System.out.println("Lista de gatos:");
+					getGatos.execute(gatos);
 					break;
 				case 4:
+					List<Perro> perros = new ArrayList<>();
+					System.out.println("Lista de perros: ");
+					getPerros.execute(perros);
 					break;
 				case 5:
 					break;
