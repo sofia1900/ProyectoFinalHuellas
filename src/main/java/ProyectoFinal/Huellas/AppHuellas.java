@@ -12,11 +12,13 @@ public class AppHuellas {
 	static AddAdopcion addAdopcionUseCase = new AddAdopcion();
 	static AddAdoptante addAdoptanteUseCase = new AddAdoptante();
 	static EliminarGato delGatoUseCase = new EliminarGato();
+	static GetGatos listarGatosUseCase = new GetGatos();
 	static EliminarPerro delPerroUseCase = new EliminarPerro();
+	static GetPerros listarPerrosUseCase = new GetPerros();
 	static ListarAdopcion listarAdopcionesUseCase = new ListarAdopcion();
 	static BuscarAdoptante buscarAdoptanteUseCase = new BuscarAdoptante();
 	static BuscarAnimal buscarAnimalUseCase = new BuscarAnimal();
-	
+	static FicheroPDF pdf = new FicheroPDF();
 	
 	static Scanner sc = new Scanner (System.in);
 	
@@ -79,13 +81,22 @@ public class AppHuellas {
 					}
 					break;
 				case 3:
-					
+					//LISTAR GATOS
+					List<Gato> gatos;
+					gatos = listarGatosUseCase.execute();
+					pintarLista(gatos);
+					pdf.listarEnFichero("gatos.pdf", gatos);
 					break;
 				case 4:
-					
+					//LISTAR PERROS
+					List<Perro> perros;
+					perros = listarPerrosUseCase.execute();
+					pintarLista(perros);
+					pdf.listarEnFichero("perros.pdf", perros);
 					break;
 				case 5:
 					//AÑADIR ADOPTANTE
+					addAdoptante();
 					break;
 				case 6:
 					//CREAR NUEVA ADOPCION
@@ -96,6 +107,7 @@ public class AppHuellas {
 					List<Registro> adopciones;
 					adopciones = listarAdopcionesUseCase.execute();
 					pintarLista(adopciones);
+					pdf.listarEnFichero("adopciones.pdf", adopciones);
 					break;
 				case 8:
 					salir = true;
@@ -122,7 +134,19 @@ public class AppHuellas {
 	}
 	
 	private static void addAdoptante () {
+		System.out.println("Introduce el nombre del adoptante");
+		String nombre = sc.next();
+		System.out.println("Introduce los apellidos del adoptante");
+		String apellidos = sc.nextLine();
+		System.out.println("Introduce el dni del adoptante");
+		String dni = sc.next();
+		System.out.println("Introduce la fecha de nacimiento del adoptante");
+		String fechaNac = sc.next();
+		System.out.println("Introduce la direccion del adoptante");
+		String direccion = sc.next();
 		
+		Adoptante adoptante = new Adoptante(0, nombre, apellidos, dni, fechaNac, direccion);
+		addAdoptanteUseCase.execute(adoptante);
 	}
 	
 	private static void addAdopcion () throws SQLException {

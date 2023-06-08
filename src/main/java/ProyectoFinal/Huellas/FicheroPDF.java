@@ -11,7 +11,8 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
 public class FicheroPDF {
-	public <T> void listarGatosFichero(String nombre, List<T> lista) {
+	
+	public <T> void listarEnFichero(String nombre, List<T> lista) {
 		try {
             File file = new File(nombre);
             PdfWriter pdfWriter = new PdfWriter(file);

@@ -7,12 +7,8 @@ public class GetPerros {
 
 	private Conexion bd = Conexion.getInstance();
 	
-	public void execute(List<Perro> perros) {
-		try {
-			bd.listarPerros();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public List<Perro> execute() throws SQLException {
+		return bd.listarPerros();
+		
 	}
 }

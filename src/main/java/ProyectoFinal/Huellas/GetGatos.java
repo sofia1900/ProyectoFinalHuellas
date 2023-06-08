@@ -7,12 +7,7 @@ public class GetGatos {
 
 	private Conexion bd = Conexion.getInstance();
 	
-	public void execute (List<Gato> gatos) {
-		try {
-			bd.listarGatos();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public List<Gato> execute() throws SQLException {
+		return bd.listarGatos();
 	}
 }
