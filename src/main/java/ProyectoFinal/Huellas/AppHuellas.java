@@ -134,8 +134,9 @@ public class AppHuellas {
 	}
 	
 	private static void addAdoptante () {
+		sc.nextLine();
 		System.out.println("Introduce el nombre del adoptante");
-		String nombre = sc.next();
+		String nombre = sc.nextLine();
 		System.out.println("Introduce los apellidos del adoptante");
 		String apellidos = sc.nextLine();
 		System.out.println("Introduce el dni del adoptante");
@@ -151,6 +152,10 @@ public class AppHuellas {
 	
 	private static void addAdopcion () throws SQLException {
 		
+		System.out.println("1. Gato");
+		System.out.println("2. Perro");
+		int opc = sc.nextInt();
+		
 		System.out.println("Introduce la fecha");
 		String fecha = sc.next();
 		System.out.println("Introduce el id del adoptante");
@@ -164,6 +169,11 @@ public class AppHuellas {
 		Registro adopcion = new Registro(0, fecha, adoptante, animal);
 		addAdopcionUseCase.execute(adopcion);
 		
+		if (opc == 1) {
+			delGatoUseCase.execute(idAnimal);
+		}else {
+			delPerroUseCase.execute(idAnimal);
+		}
 	}
 	
 	private static boolean validarSexo (String sexo) {

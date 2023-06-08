@@ -142,11 +142,12 @@ public class Conexion {
 	}
 	public void addAdoptante(Adoptante a) throws SQLException {
 		addPersona(a);
-		String sql = "INSERT INTO adoptante (fechaNac, Direccion) VALUES (?,?,?)";
+		String sql = "INSERT INTO adoptante (id, fecha_nacimiento, direccion) VALUES (?, ?,?)";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setString(1, a.getFechaNac());
-		stat.setString(2, a.getDireccion());
+		stat.setInt(1, devolverId());
+		stat.setString(2, a.getFechaNac());
+		stat.setString(3, a.getDireccion());
 		
 		stat.executeUpdate();
 		stat.close();
@@ -252,7 +253,6 @@ public class Conexion {
 		int id;
 		String raza;
 		boolean amigable;
-		int animal = 0;
 		
 		List<Perro> perros = new ArrayList<>();
 		
@@ -262,7 +262,7 @@ public class Conexion {
 			amigable = result.getBoolean("amigable");
 			
 			
-			Perro perro = buscarPerro(animal);
+			Perro perro = buscarPerro(id);
 			perros.add(perro);
 			
 		}
@@ -279,7 +279,6 @@ public class Conexion {
 		
 		int id;
 		boolean virus;
-		int gato = 0;
 		
 		List<Gato> gatos = new ArrayList<>();
 		
@@ -287,8 +286,8 @@ public class Conexion {
 			id = result.getInt("id");
 			virus = result.getBoolean("virus");
 			
-		Gato gatito = buscarGato(gato);
-		gatos.add(gatito);
+			Gato gatito = buscarGato(id);
+			gatos.add(gatito);
 		
 		}
 			return gatos;
@@ -300,19 +299,20 @@ public class Conexion {
 	//BUSCAR ANIMAL
 	public Animal buscarAnimal (int id) throws SQLException {
 		String sql = "SELECT * FROM animal WHERE id = ?";
-		
+	
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setInt(1, id);
 		
 		ResultSet result = stat.executeQuery();
-		
 		result.next();
+		
 		int idA = result.getInt("id");
 		String nombre = result.getString("nombre");
 		String fecha = result.getString("fecha");
 		String sexo = result.getString("sexo");
 		
 		Animal animal = new Animal(idA, nombre, fecha, sexo);
+	
 		return animal;
 		
 	}
