@@ -1,19 +1,21 @@
 package ProyectoFinal.Huellas;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-
 
 public class AppHuellas {
 	
 	static AddGato addGatoUseCase = new AddGato ();
 	static AddPerro addPerroUseCase = new AddPerro();
-	static EliminarGato delG = new EliminarGato();
-	static EliminarPerro delP = new EliminarPerro();
-	static GetGatos getGatos = new GetGatos();
-	static GetPerros getPerros = new GetPerros();
+	static AddAdopcion addAdopcionUseCase = new AddAdopcion();
+	static AddAdoptante addAdoptanteUseCase = new AddAdoptante();
+	static EliminarGato delGatoUseCase = new EliminarGato();
+	static EliminarPerro delPerroUseCase = new EliminarPerro();
+	static ListarAdopcion listarAdopcionesUseCase = new ListarAdopcion();
+	static BuscarAdoptante buscarAdoptanteUseCase = new BuscarAdoptante();
+	static BuscarAnimal buscarAnimalUseCase = new BuscarAnimal();
 	
 	
 	static Scanner sc = new Scanner (System.in);
@@ -67,30 +69,32 @@ public class AppHuellas {
 					
 					switch (opc2) {
 					case 1:
-						delG.execute(id);
+						delGatoUseCase.execute(id);
 						break;
 					case 2:
-						delP.execute(id);
+						delPerroUseCase.execute(id);
 						break;
 					default:
 						System.out.println("OPCION NO VALIDA");
 					}
 					break;
 				case 3:
-					List<Gato> gatos = new ArrayList<>();
-					System.out.println("Lista de gatos:");
-					getGatos.execute(gatos);
+					
 					break;
 				case 4:
-					List<Perro> perros = new ArrayList<>();
-					System.out.println("Lista de perros: ");
-					getPerros.execute(perros);
+					
 					break;
 				case 5:
 					break;
 				case 6:
+					//CREAR NUEVA ADOPCION
+					addAdopcion();
 					break;
 				case 7:
+					//LISTA ADOPCIONES
+					List<Registro> adopciones;
+					adopciones = listarAdopcionesUseCase.execute();
+					pintarAdopciones(adopciones);
 					break;
 				case 8:
 					salir = true;
@@ -107,6 +111,33 @@ public class AppHuellas {
 			
 			
 		}while (salir == false);
+		
+	}
+	
+	private static void pintarAdopciones (List<Registro> adopciones) {
+		for (Registro r : adopciones) {
+			System.out.println(r);
+		}
+	}
+	
+	private static void addAdoptante () {
+		
+	}
+	
+	private static void addAdopcion () throws SQLException {
+		
+		System.out.println("Introduce la fecha");
+		String fecha = sc.next();
+		System.out.println("Introduce el id del adoptante");
+		int idAdoptante = sc.nextInt();
+		System.out.println("Introduce el id del animal");
+		int idAnimal = sc.nextInt();
+		
+		Adoptante adoptante = buscarAdoptanteUseCase.execute(idAdoptante);
+		Animal animal = buscarAnimalUseCase.execute(idAnimal);
+		
+		Registro adopcion = new Registro(0, fecha, adoptante, animal);
+		addAdopcionUseCase.execute(adopcion);
 		
 	}
 	

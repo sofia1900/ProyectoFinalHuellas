@@ -219,7 +219,7 @@ public class Conexion {
 		
 	}
 	//BUSCAR ADOPTANTE
-	private Adoptante buscarAdoptante (int id) throws SQLException {
+	public Adoptante buscarAdoptante (int id) throws SQLException {
 		
 		Persona p = buscarPersona (id);
 		
@@ -295,9 +295,10 @@ public class Conexion {
 		
 		
 	}
+
 	
 	//BUSCAR ANIMAL
-	private Animal buscarAnimal (int id) throws SQLException {
+	public Animal buscarAnimal (int id) throws SQLException {
 		String sql = "SELECT * FROM animal WHERE id = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
