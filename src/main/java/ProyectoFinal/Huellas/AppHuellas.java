@@ -35,7 +35,7 @@ public class AppHuellas {
 				System.out.println("2. Eliminar animal");
 				System.out.println("3. Listar gatos");
 				System.out.println("4. Listar perros");
-				System.out.println("5. Añadir persona");
+				System.out.println("5. Añadir adoptante");
 				System.out.println("6. Crear nueva adopcion");
 				System.out.println("7. Listar adopciones");
 				System.out.println("8. Salir");
@@ -85,6 +85,7 @@ public class AppHuellas {
 					
 					break;
 				case 5:
+					//AÑADIR ADOPTANTE
 					break;
 				case 6:
 					//CREAR NUEVA ADOPCION
@@ -94,7 +95,7 @@ public class AppHuellas {
 					//LISTA ADOPCIONES
 					List<Registro> adopciones;
 					adopciones = listarAdopcionesUseCase.execute();
-					pintarAdopciones(adopciones);
+					pintarLista(adopciones);
 					break;
 				case 8:
 					salir = true;
@@ -114,9 +115,9 @@ public class AppHuellas {
 		
 	}
 	
-	private static void pintarAdopciones (List<Registro> adopciones) {
-		for (Registro r : adopciones) {
-			System.out.println(r);
+	private static <T> void pintarLista(List<T> lista) {
+		for (T unidad : lista) {
+			System.out.println(unidad);
 		}
 	}
 	
