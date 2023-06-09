@@ -57,12 +57,13 @@ public class Conexion {
 	
 	//AÑADIR ANIMAL (PERROS Y GATOS)
 	private void addAnimal (Animal a) throws SQLException {
-		String sql = "INSERT INTO animal (nombre, fecha, sexo) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO animal (nombre, fecha, sexo, adoptado) VALUES (?, ?, ?, ?)";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
 		stat.setString(1, a.getNombre());
 		stat.setString(2, a.getFechaNac());
 		stat.setString(3, a.getSexo());
+		stat.setBoolean(4, false);
 		
 		stat.executeUpdate();
 		stat.close();
@@ -98,6 +99,19 @@ public class Conexion {
 	}
 	
 	//ELIMINAR ANIMAL 
+		//ver si el animal esta adoptado (no se puede eliminar)
+	public void eliminar (int id, String tipo) throws SQLException {
+		Animal animal = buscarAnimal(id);
+		if (animal.getNombre() != null && !animal.isAdoptado()) {
+			if (tipo.equals("gato")) {
+				eliminarGato(id);
+			}else {
+				eliminarPerro(id);
+			}
+		}else {
+			System.out.println("El animal no existe");
+		}
+	}
 		//eliminar de gato/perro
 	public void eliminarGato (int id) throws SQLException {
 		String sql = "DELETE FROM gato WHERE id = ?";
@@ -162,17 +176,33 @@ public class Conexion {
 	
 	//CREAR UNA ADOPCION
 	public void addAdopcion(Registro r) throws SQLException {
-		String sql = "INSERT INTO registro (fecha, persona, animal) VALUES (?,?,?)";
+		
+		if (r.getAnimal().isAdoptado()) {
+			System.out.println("El animal no existe");
+		}else {
+			String sql = "INSERT INTO registro (fecha, persona, animal) VALUES (?,?,?)";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setString(1,r.getFechaAdopcion());
+			stat.setInt(2, r.getAdoptante().getId());
+			stat.setInt(3, r.getAnimal().getId());
+
+			stat.execute();
+			stat.close();
+			
+			animalAdoptado(r.getAnimal().getId());
+		}
+		
+	}
+	//ANIMAL ADOPTADO
+	private void animalAdoptado (int id) throws SQLException {
+		String sql = "UPDATE animal SET adoptado = 1 WHERE id = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setString(1,r.getFechaAdopcion());
-		stat.setInt(2, r.getAdoptante().getId());
-		stat.setInt(3, r.getAnimal().getId());
+		stat.setInt(1, id);
 		
 		stat.execute();
 		stat.close();
-
-		
 	}
 	
 	//LISTAR ADOPCIONES
@@ -216,13 +246,19 @@ public class Conexion {
 		
 		ResultSet result = stat.executeQuery();
 		
-		result.next();
-		int idP = result.getInt("id");
-		String nombre = result.getString("nombre");
-		String apellidos = result.getString("apellidos");
-		String dni = result.getString("dni");
+		Persona p = new Persona();
+		while (result.next()) {
+			int idP = result.getInt("id");
+			String nombre = result.getString("nombre");
+			String apellidos = result.getString("apellidos");
+			String dni = result.getString("dni");
+			
+			p.setId(idP);
+			p.setDni(dni);
+			p.setNombre(nombre);
+			p.setApellidos(apellidos);
+		}
 		
-		Persona p = new Persona(idP, nombre, apellidos, dni);
 		return p;
 		
 	}
@@ -230,21 +266,33 @@ public class Conexion {
 	public Adoptante buscarAdoptante (int id) throws SQLException {
 		
 		Persona p = buscarPersona (id);
+		Adoptante adopt = new Adoptante();
+		if (p.getDni() != null) {
+
+			String sql = "SELECT * FROM adoptante WHERE id = ?";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setInt(1, id);
+			
+			ResultSet result = stat.executeQuery();
+			result.next();
+			
+			int idA = result.getInt("id");
+			String fecha = result.getString("fecha_nacimiento");
+			String direccion = result.getString("direccion");
+			
+			
+			adopt.setId(p.getId());
+			adopt.setNombre(p.getNombre());
+			adopt.setApellidos(p.getApellidos());
+			adopt.setDni(p.getDni());
+			adopt.setFechaNac(fecha);
+			adopt.setDireccion(direccion);
+			
+		}else {
+			System.out.println("El adoptante no existe");
+		}
 		
-		String sql = "SELECT * FROM adoptante WHERE id = ?";
-		
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, id);
-		
-		ResultSet result = stat.executeQuery();
-		
-		result.next();
-		
-		int idA = result.getInt("id");
-		String fecha = result.getString("fecha_nacimiento");
-		String direccion = result.getString("direccion");
-		
-		Adoptante adopt = new Adoptante (p.getId(), p.getNombre(), p.getApellidos(), p.getDni(), fecha, direccion);
 		
 		return adopt;
 		
@@ -270,7 +318,9 @@ public class Conexion {
 			
 			
 			Perro perro = buscarPerro(id);
-			perros.add(perro);
+			if (!perro.isAdoptado()) {
+				perros.add(perro);
+			}
 			
 		}
 		
@@ -294,11 +344,12 @@ public class Conexion {
 			virus = result.getBoolean("virus");
 			
 			Gato gatito = buscarGato(id);
-			gatos.add(gatito);
-		
+			if (!gatito.isAdoptado()) {
+				gatos.add(gatito);
+			}
+			
 		}
 			return gatos;
-		
 		
 	}
 
@@ -311,15 +362,31 @@ public class Conexion {
 		stat.setInt(1, id);
 		
 		ResultSet result = stat.executeQuery();
-		result.next();
-		
-		int idA = result.getInt("id");
-		String nombre = result.getString("nombre");
-		String fecha = result.getString("fecha");
-		String sexo = result.getString("sexo");
-		
-		Animal animal = new Animal(idA, nombre, fecha, sexo);
 	
+		Animal animal = new Animal ();
+		int total = 0;
+		
+		while (result.next()) {
+			int idA = result.getInt("id");
+			String nombre = result.getString("nombre");
+			String fecha = result.getString("fecha");
+			String sexo = result.getString("sexo");
+			boolean adoptado = result.getBoolean("adoptado");
+			
+			animal = new Animal(idA, nombre, fecha, sexo, adoptado);
+			animal.setId(idA);
+			animal.setNombre(nombre);
+			animal.setFechaNac(fecha);
+			animal.setSexo(sexo);
+			animal.setAdoptado(adoptado);
+			
+			total ++;
+		}
+		
+		if (total == 0) {
+			System.out.println("El animal no existe");
+		}
+		
 		return animal;
 		
 	}
@@ -327,41 +394,61 @@ public class Conexion {
 	private Perro buscarPerro(int id) throws SQLException{
 		
 		Animal animal = buscarAnimal(id);
+		Perro p = new Perro();
 		
-		String sql = "SELECT * FROM perro WHERE id = ?";
-		
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, id);
-		
-		ResultSet result = stat.executeQuery();
-		result.next();
-		
-		int idP = result.getInt("id");
-		String raza = result.getString("raza");
-		boolean amigable = result.getBoolean("amigable");
-		
-		Perro p = new Perro(animal.getId(),animal.getNombre(),animal.getFechaNac(),animal.getSexo(),raza,amigable);
+		if (animal.getNombre() != null) {
+			String sql = "SELECT * FROM perro WHERE id = ?";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setInt(1, id);
+			
+			ResultSet result = stat.executeQuery();
+			result.next();
+			
+			int idP = result.getInt("id");
+			String raza = result.getString("raza");
+			boolean amigable = result.getBoolean("amigable");
+			
+			p.setId(animal.getId());
+			p.setNombre(animal.getNombre());
+			p.setFechaNac(animal.getFechaNac());
+			p.setSexo(animal.getSexo());
+			p.setAdoptado(animal.isAdoptado());
+			p.setRaza(raza);
+			p.setAmigable(amigable);
+			
+		}
 		
 		return p;
 	}
 	private Gato buscarGato(int id) throws SQLException{
 		
 		Animal animal = buscarAnimal(id);
-		String sql = "SELECT * FROM gato WHERE id = ?";
+		Gato g = new Gato ();
+		if (animal.getNombre() != null) {
+			String sql = "SELECT * FROM gato WHERE id = ?";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setInt(1, id);
+			
+			ResultSet result = stat.executeQuery();
+			result.next();
+			
+			int idGato = result.getInt("id");
+			boolean virus = result.getBoolean("virus");
+			
+			g.setId(animal.getId());
+			g.setNombre(animal.getNombre());
+			g.setFechaNac(animal.getFechaNac());
+			g.setSexo(animal.getSexo());
+			g.setAdoptado(animal.isAdoptado());
+			g.setVirus(virus);
+		}
 		
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, id);
-		
-		ResultSet result = stat.executeQuery();
-		result.next();
-		
-		int idGato = result.getInt("id");
-		boolean virus = result.getBoolean("virus");
-		
-		Gato g = new Gato(animal.getId(),animal.getNombre(),animal.getFechaNac(),animal.getSexo(),virus);
 		return g;
 		
 	}
+	
 	//Patron SINGLETON
 	public static Conexion getInstance () {
 		if (instance == null) {

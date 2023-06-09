@@ -10,7 +10,7 @@ public class EliminarGato {
 	
 	public void execute (int id) {
 		try {
-			bd.eliminarGato(id);
+			bd.eliminar(id, "gato");;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
