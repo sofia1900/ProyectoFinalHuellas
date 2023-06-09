@@ -10,7 +10,7 @@ public class EliminarPerro {
 	
 	public void execute (int id) {
 		try {
-			bd.eliminarPerro(id);
+			bd.eliminar(id, "perro");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

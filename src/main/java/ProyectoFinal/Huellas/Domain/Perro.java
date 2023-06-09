@@ -4,9 +4,9 @@ public class Perro extends Animal {
 	private String raza;
 	private boolean amigable;
 	
-	public Perro(Perro perro, String raza2, boolean amigable2) {}
-	public Perro(int id, String nombre, String fechaNac, String sexo,String raza, boolean amigable) {
-		super(id, nombre, fechaNac, sexo);
+	public Perro() {}
+	public Perro(int id, String nombre, String fechaNac, String sexo, boolean adoptado, String raza, boolean amigable) {
+		super(id, nombre, fechaNac, sexo, adoptado);
 		this.raza=raza;
 		this.amigable=amigable;
 	}

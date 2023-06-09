@@ -5,8 +5,8 @@ public class Gato extends Animal{
 	private boolean virus;
 	
 	public Gato() {}
-	public Gato(int id, String nombre, String fechaNac, String sexo, boolean virus) {
-		super(id, nombre, fechaNac, sexo);
+	public Gato(int id, String nombre, String fechaNac, String sexo, boolean adoptado,  boolean virus) {
+		super(id, nombre, fechaNac, sexo, adoptado);
 		this.virus=virus;
 	}
 

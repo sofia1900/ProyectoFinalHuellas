@@ -102,15 +102,24 @@ public class AppHuellas {
 					//LISTAR GATOS
 					List<Gato> gatos;
 					gatos = listarGatosUseCase.execute();
-					pintarLista(gatos);
-					pdf.listarEnFichero("gatos.pdf", gatos);
+					if (gatos.size() > 0) {
+						pintarLista(gatos);
+						pdf.listarEnFichero("gatos.pdf", gatos);
+					}else {
+						System.out.println("No hay ningun gato");
+					}
 					break;
 				case 4:
 					//LISTAR PERROS
 					List<Perro> perros;
 					perros = listarPerrosUseCase.execute();
-					pintarLista(perros);
-					pdf.listarEnFichero("perros.pdf", perros);
+					if (perros.size() > 0) {
+						pintarLista(perros);
+						pdf.listarEnFichero("perros.pdf", perros);
+					}else {
+						System.out.println("No hay ningun perro");
+					}
+					
 					break;
 				case 5:
 					//AÑADIR ADOPTANTE
@@ -124,8 +133,13 @@ public class AppHuellas {
 					//LISTA ADOPCIONES
 					List<Registro> adopciones;
 					adopciones = listarAdopcionesUseCase.execute();
-					pintarLista(adopciones);
-					pdf.listarEnFichero("adopciones.pdf", adopciones);
+					if (adopciones.size() > 0) {
+						pintarLista(adopciones);
+						pdf.listarEnFichero("adopciones.pdf", adopciones);
+					}else {
+						System.out.println("No hay ninguna adopcion registrada");
+					}
+					
 					break;
 				case 8:
 					salir = true;
@@ -169,11 +183,7 @@ public class AppHuellas {
 	}
 	
 	private static void addAdopcion () throws SQLException {
-		
-		System.out.println("1. Gato");
-		System.out.println("2. Perro");
-		int opc = sc.nextInt();
-		
+	
 		System.out.println("Introduce la fecha");
 		String fecha = sc.next();
 		System.out.println("Introduce el id del adoptante");
@@ -184,14 +194,14 @@ public class AppHuellas {
 		Adoptante adoptante = buscarAdoptanteUseCase.execute(idAdoptante);
 		Animal animal = buscarAnimalUseCase.execute(idAnimal);
 		
-		Registro adopcion = new Registro(0, fecha, adoptante, animal);
-		addAdopcionUseCase.execute(adopcion);
-		
-		if (opc == 1) {
-			delGatoUseCase.execute(idAnimal);
+		if (adoptante.getDni() != null && animal.getNombre() != null) {
+			Registro adopcion = new Registro(0, fecha, adoptante, animal);
+			addAdopcionUseCase.execute(adopcion);
 		}else {
-			delPerroUseCase.execute(idAnimal);
+			System.out.println("Los datos introducidos no son correctos");
 		}
+		
+
 	}
 	
 	private static boolean validarSexo (String sexo) {
@@ -229,7 +239,7 @@ public class AppHuellas {
 		System.out.println("Introduce true si el animal tiene virus o false si no lo tiene");
 		boolean virus = sc.nextBoolean();
 	
-		Gato gato = new Gato (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), virus);
+		Gato gato = new Gato (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), false, virus);
 		
 		addGatoUseCase.execute(gato);
 	}
@@ -241,7 +251,7 @@ public class AppHuellas {
 		System.out.println("Introduce true si el animal el amigable o false si no lo es");
 		boolean amigable = sc.nextBoolean();
 		
-		Perro perro = new Perro (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), raza, amigable);
+		Perro perro = new Perro (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), false, raza, amigable);
 		
 		addPerroUseCase.execute(perro);
 	}

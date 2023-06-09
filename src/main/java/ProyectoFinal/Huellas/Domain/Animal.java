@@ -6,15 +6,17 @@ public class Animal {
 	protected String nombre;
 	protected String fechaNac;
 	protected String sexo;
+	protected boolean adoptado;
 	
 	public Animal() {}
 	
 	
-	public Animal(int id, String nombre, String fechaNac, String sexo) {
+	public Animal(int id, String nombre, String fechaNac, String sexo, boolean adoptado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.fechaNac = fechaNac;
 		this.sexo = sexo;
+		this.adoptado = adoptado;
 	}
 
 
@@ -41,6 +43,12 @@ public class Animal {
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+	public boolean isAdoptado() {
+		return adoptado;
+	}
+	public void setAdoptado(boolean adoptado) {
+		this.adoptado = adoptado;
 	}
 
 
