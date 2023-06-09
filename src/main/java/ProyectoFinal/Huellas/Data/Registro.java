@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package ProyectoFinal.Huellas.Data;
 
 public class Registro {
 	private int idRegistro;

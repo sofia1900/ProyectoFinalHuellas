@@ -1,5 +1,7 @@
-package ProyectoFinal.Huellas;
+package ProyectoFinal.Huellas.Data;
 import java.sql.SQLException;
+
+import ProyectoFinal.Huellas.Domain.Conexion;
 
 public class AddAdopcion {
 	

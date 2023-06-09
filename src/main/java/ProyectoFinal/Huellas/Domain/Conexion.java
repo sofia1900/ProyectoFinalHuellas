@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas;
+package ProyectoFinal.Huellas.Domain;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ProyectoFinal.Huellas.Data.Adoptante;
+import ProyectoFinal.Huellas.Data.Animal;
+import ProyectoFinal.Huellas.Data.Gato;
+import ProyectoFinal.Huellas.Data.Perro;
+import ProyectoFinal.Huellas.Data.Persona;
+import ProyectoFinal.Huellas.Data.Registro;
 
 public class Conexion {
 	

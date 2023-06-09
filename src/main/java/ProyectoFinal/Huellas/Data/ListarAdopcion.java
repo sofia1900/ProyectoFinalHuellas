@@ -1,7 +1,9 @@
-package ProyectoFinal.Huellas;
+package ProyectoFinal.Huellas.Data;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import ProyectoFinal.Huellas.Domain.Conexion;
 
 public class ListarAdopcion {
 	
