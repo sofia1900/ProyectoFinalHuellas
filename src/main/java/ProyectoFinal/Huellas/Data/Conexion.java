@@ -162,17 +162,50 @@ public class Conexion {
 		
 	}
 	public void addAdoptante(Adoptante a) throws SQLException {
-		addPersona(a);
-		String sql = "INSERT INTO adoptante (id, fecha_nacimiento, direccion) VALUES (?, ?,?)";
+		Persona p = buscarPersonaDNI(a.getDni());
+		
+		if (p.getDni() != null) {
+			System.out.println("Ya hay un persona con ese DNI");
+		}else {
+			addPersona(a);
+			String sql = "INSERT INTO adoptante (id, fecha_nacimiento, direccion) VALUES (?, ?,?)";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setInt(1, devolverId());
+			stat.setString(2, a.getFechaNac());
+			stat.setString(3, a.getDireccion());
+			
+			stat.executeUpdate();
+			stat.close();
+		}
+		
+	}
+	//Buscar persona por DNI
+	private Persona buscarPersonaDNI (String dni) throws SQLException {
+		String sql = "SELECT * FROM persona WHERE dni = ?";
 		
 		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setInt(1, devolverId());
-		stat.setString(2, a.getFechaNac());
-		stat.setString(3, a.getDireccion());
+		stat.setString(1, dni);
 		
-		stat.executeUpdate();
-		stat.close();
+		ResultSet result = stat.executeQuery();
+		
+		Persona p = new Persona();
+		while (result.next()) {
+			int idP = result.getInt("id");
+			String nombre = result.getString("nombre");
+			String apellidos = result.getString("apellidos");
+			String dniP = result.getString("dni");
+			
+			p.setId(idP);
+			p.setDni(dniP);
+			p.setNombre(nombre);
+			p.setApellidos(apellidos);
+		}
+		
+		return p;
+		
 	}
+	
 	
 	//CREAR UNA ADOPCION
 	public void addAdopcion(Registro r) throws SQLException {
