@@ -2,6 +2,7 @@ package ProyectoFinal.Huellas.Presentation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -191,7 +192,7 @@ public class AppHuellas {
 			System.out.println("Introduce la fecha de nacimiento del adoptante (dd/mm/yyyy)");
 			fechaNac = sc.next();
 			
-			if (fechaNac.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")){
+			if (fechaNac.matches("^([0-2]\\d|3[01])/(0\\d|1[012])/\\d{4}")){
 				correcto = true;
 			}
 		}while (correcto == false);
@@ -210,7 +211,7 @@ public class AppHuellas {
 		do {
 			System.out.println("Introduce la fecha (dd/mm/yyyy)");
 			fecha = sc.next();
-			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")) {
+			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[012])/\\d{4}")) {
 				correcto = true;
 			}
 			
@@ -246,7 +247,7 @@ public class AppHuellas {
 		do {
 			System.out.println("Introduce la fecha de nacimiento (dd/mm/yyyy)");
 			fecha = sc.next();
-			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")) {
+			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[012])/\\d{4}")) {
 				correcto = true;
 			}
 			
@@ -272,9 +273,20 @@ public class AppHuellas {
 	public static void addGato () {
 		List<String> datosAnimal = addAnimal();
 		
-		System.out.println("Introduce true si el animal tiene virus o false si no lo tiene");
-		boolean virus = sc.nextBoolean();
-	
+		boolean correcto = false;
+		boolean virus = false;
+		do {
+			try {
+				System.out.println("Introduce true si el animal tiene virus o false si no lo tiene");
+				virus = sc.nextBoolean();
+				correcto = true;
+			}catch (InputMismatchException e) {
+				System.out.println("Introduce true o false");
+				sc.next();
+			}
+			
+		}while (correcto == false);
+		
 		Gato gato = new Gato (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), false, virus);
 		
 		addGatoUseCase.execute(gato);
@@ -285,8 +297,21 @@ public class AppHuellas {
 		sc.nextLine();
 		System.out.println("Introduce la raza del perro");
 		String raza = sc.nextLine();
-		System.out.println("Introduce true si el animal el amigable o false si no lo es");
-		boolean amigable = sc.nextBoolean();
+		
+		boolean correcto = false;
+		boolean amigable = true;
+		do {
+			try {
+				System.out.println("Introduce true si el animal el amigable o false si no lo es");
+				amigable = sc.nextBoolean();
+				correcto = true;
+			}catch (InputMismatchException e) {
+				System.out.println("Introduce true o false");
+				sc.next();
+			}
+			
+		}while (correcto == false);
+		
 		
 		Perro perro = new Perro (0, datosAnimal.get(0), datosAnimal.get(1), datosAnimal.get(2), false, raza, amigable);
 		
