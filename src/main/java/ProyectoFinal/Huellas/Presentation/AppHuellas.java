@@ -173,10 +173,30 @@ public class AppHuellas {
 		String nombre = sc.nextLine();
 		System.out.println("Introduce los apellidos del adoptante");
 		String apellidos = sc.nextLine();
-		System.out.println("Introduce el dni del adoptante");
-		String dni = sc.next();
-		System.out.println("Introduce la fecha de nacimiento del adoptante");
-		String fechaNac = sc.next();
+		
+		boolean correcto = false;
+		String dni;
+		do {
+			System.out.println("Introduce el dni del adoptante");
+			dni = sc.next();
+			
+			if (dni.matches("^[0-9]{7,8}[T|R|W|A|G|M|Y|F|T|D|X|B|N|J|Z|S|Q|V|H|L|C|K|E]$")) {
+				correcto = true;
+			}
+		}while (correcto == false);
+		
+		correcto = false;
+		String fechaNac;
+		do {
+			System.out.println("Introduce la fecha de nacimiento del adoptante (dd/mm/yyyy)");
+			fechaNac = sc.next();
+			
+			if (fechaNac.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")){
+				correcto = true;
+			}
+		}while (correcto == false);
+		
+		
 		System.out.println("Introduce la direccion del adoptante");
 		String direccion = sc.next();
 		
@@ -185,9 +205,17 @@ public class AppHuellas {
 	}
 	
 	private static void addAdopcion () throws SQLException {
-	
-		System.out.println("Introduce la fecha");
-		String fecha = sc.next();
+		String fecha;
+		boolean correcto = false;
+		do {
+			System.out.println("Introduce la fecha (dd/mm/yyyy)");
+			fecha = sc.next();
+			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")) {
+				correcto = true;
+			}
+			
+		}while (correcto == false);
+		
 		System.out.println("Introduce el id del adoptante");
 		int idAdoptante = sc.nextInt();
 		System.out.println("Introduce el id del animal");
@@ -213,8 +241,17 @@ public class AppHuellas {
 	private static List<String> addAnimal() {
 		System.out.println("Introduce el nombre del animal");
 		String nombre = sc.next();
-		System.out.println("Introduce la fecha de nacimiento");
-		String fecha = sc.next();
+		String fecha;
+		boolean correcto = false;
+		do {
+			System.out.println("Introduce la fecha de nacimiento (dd/mm/yyyy)");
+			fecha = sc.next();
+			if (fecha.matches("^([0-2]\\d|3[01])/(0\\d|1[01])/\\d{1,4}")) {
+				correcto = true;
+			}
+			
+		}while (correcto == false);
+
 		String sexo;
 		boolean ok;
 		do {
