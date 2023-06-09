@@ -197,11 +197,8 @@ public class AppHuellas {
 		if (adoptante.getDni() != null && animal.getNombre() != null) {
 			Registro adopcion = new Registro(0, fecha, adoptante, animal);
 			addAdopcionUseCase.execute(adopcion);
-		}else {
-			System.out.println("Los datos introducidos no son correctos");
 		}
 		
-
 	}
 	
 	private static boolean validarSexo (String sexo) {
@@ -246,6 +243,7 @@ public class AppHuellas {
 	public static void addPerro () {
 		List<String> datosAnimal = addAnimal();
 		
+		sc.nextLine();
 		System.out.println("Introduce la raza del perro");
 		String raza = sc.nextLine();
 		System.out.println("Introduce true si el animal el amigable o false si no lo es");

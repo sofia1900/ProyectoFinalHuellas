@@ -177,17 +177,21 @@ public class Conexion {
 	//CREAR UNA ADOPCION
 	public void addAdopcion(Registro r) throws SQLException {
 		
-		String sql = "INSERT INTO registro (fecha, persona, animal) VALUES (?,?,?)";
-		
-		PreparedStatement stat = conexion.prepareStatement(sql);
-		stat.setString(1,r.getFechaAdopcion());
-		stat.setInt(2, r.getAdoptante().getId());
-		stat.setInt(3, r.getAnimal().getId());
+		if (r.getAnimal().isAdoptado()) {
+			System.out.println("El animal no existe");
+		}else {
+			String sql = "INSERT INTO registro (fecha, persona, animal) VALUES (?,?,?)";
+			
+			PreparedStatement stat = conexion.prepareStatement(sql);
+			stat.setString(1,r.getFechaAdopcion());
+			stat.setInt(2, r.getAdoptante().getId());
+			stat.setInt(3, r.getAnimal().getId());
 
-		stat.execute();
-		stat.close();
-		
-		animalAdoptado(r.getAnimal().getId());
+			stat.execute();
+			stat.close();
+			
+			animalAdoptado(r.getAnimal().getId());
+		}
 		
 	}
 	//ANIMAL ADOPTADO
