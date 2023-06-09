@@ -5,23 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import ProyectoFinal.Huellas.Data.AddAdopcion;
-import ProyectoFinal.Huellas.Data.AddAdoptante;
-import ProyectoFinal.Huellas.Data.AddGato;
-import ProyectoFinal.Huellas.Data.AddPerro;
-import ProyectoFinal.Huellas.Data.Adoptante;
-import ProyectoFinal.Huellas.Data.Animal;
-import ProyectoFinal.Huellas.Data.BuscarAdoptante;
-import ProyectoFinal.Huellas.Data.BuscarAnimal;
-import ProyectoFinal.Huellas.Data.EliminarGato;
-import ProyectoFinal.Huellas.Data.EliminarPerro;
-import ProyectoFinal.Huellas.Data.Gato;
-import ProyectoFinal.Huellas.Data.GetGatos;
-import ProyectoFinal.Huellas.Data.GetPerros;
-import ProyectoFinal.Huellas.Data.ListarAdopcion;
-import ProyectoFinal.Huellas.Data.Perro;
-import ProyectoFinal.Huellas.Data.Registro;
-import ProyectoFinal.Huellas.Domain.FicheroPDF;
+import ProyectoFinal.Huellas.Data.FicheroPDF;
+import ProyectoFinal.Huellas.Domain.AddAdopcion;
+import ProyectoFinal.Huellas.Domain.AddAdoptante;
+import ProyectoFinal.Huellas.Domain.AddGato;
+import ProyectoFinal.Huellas.Domain.AddPerro;
+import ProyectoFinal.Huellas.Domain.Adoptante;
+import ProyectoFinal.Huellas.Domain.Animal;
+import ProyectoFinal.Huellas.Domain.BuscarAdoptante;
+import ProyectoFinal.Huellas.Domain.BuscarAnimal;
+import ProyectoFinal.Huellas.Domain.EliminarGato;
+import ProyectoFinal.Huellas.Domain.EliminarPerro;
+import ProyectoFinal.Huellas.Domain.Gato;
+import ProyectoFinal.Huellas.Domain.GetGatos;
+import ProyectoFinal.Huellas.Domain.GetPerros;
+import ProyectoFinal.Huellas.Domain.ListarAdopcion;
+import ProyectoFinal.Huellas.Domain.Perro;
+import ProyectoFinal.Huellas.Domain.Registro;
 
 public class AppHuellas {
 	

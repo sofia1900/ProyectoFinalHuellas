@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas.Data;
+package ProyectoFinal.Huellas.Domain;
 
 public class Adoptante extends Persona {
 	

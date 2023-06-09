@@ -1,4 +1,4 @@
-package ProyectoFinal.Huellas.Domain;
+package ProyectoFinal.Huellas.Data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
