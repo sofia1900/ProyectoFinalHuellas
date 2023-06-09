@@ -64,6 +64,7 @@ public class AppHuellas {
 				
 				switch(opc) {
 				case 1:
+					//AÑADIR ANIMAL
 					//PREGUNTAR SI ES UN GATO O UN PERRO
 					System.out.println("1. Gato");
 					System.out.println("2. Perro");
@@ -80,6 +81,7 @@ public class AppHuellas {
 					}
 					break;
 				case 2:
+					//ELIMINAR ANIMAL
 					//PREGUNTAR SI ES UN GATO O UN PERRO
 					System.out.println("1. Gato");
 					System.out.println("2. Perro");
