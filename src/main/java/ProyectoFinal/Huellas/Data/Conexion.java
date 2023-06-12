@@ -103,10 +103,23 @@ public class Conexion {
 	public void eliminar (int id, String tipo) throws SQLException {
 		Animal animal = buscarAnimal(id);
 		if (animal.getNombre() != null && !animal.isAdoptado()) {
+			
 			if (tipo.equals("gato")) {
-				eliminarGato(id);
-			}else {
-				eliminarPerro(id);
+				try {
+					Gato g = buscarGato(id);
+					eliminarGato(id);
+				}catch(Exception e) {
+					System.out.println("El animal no existe");
+				}
+				
+			}else{
+				try {
+					Perro p = buscarPerro(id);
+					eliminarPerro(id);
+				}catch (Exception e) {
+					System.out.println("El enimal no existe");
+				}
+				
 			}
 		}else {
 			System.out.println("El animal no existe");

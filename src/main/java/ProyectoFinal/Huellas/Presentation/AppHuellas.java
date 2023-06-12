@@ -87,14 +87,17 @@ public class AppHuellas {
 					System.out.println("1. Gato");
 					System.out.println("2. Perro");
 					opc2 = sc.nextInt();
-					System.out.println("Introduce el ID del animal");
-					int id = sc.nextInt();
-					
+		
+					int id;
 					switch (opc2) {
 					case 1:
+						System.out.println("Introduce el ID del animal");
+						id = sc.nextInt();
 						delGatoUseCase.execute(id);
 						break;
 					case 2:
+						System.out.println("Introduce el ID del animal");
+						id = sc.nextInt();
 						delPerroUseCase.execute(id);
 						break;
 					default:
