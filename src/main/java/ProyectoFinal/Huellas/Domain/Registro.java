@@ -43,8 +43,8 @@ public class Registro {
 	
 	@Override
 	public String toString() {
-		return "Registro [idRegistro=" + idRegistro + ", fechaAdopcion=" + fechaAdopcion + ", adoptante =" + adoptante
-				+ ", animal=" + animal + "]";
+		return "Registro Adopcion [idRegistro=" + idRegistro + ", fechaAdopcion=" + fechaAdopcion + ", " + adoptante
+				+ ", " + animal + "]";
 	}
 	
 	
