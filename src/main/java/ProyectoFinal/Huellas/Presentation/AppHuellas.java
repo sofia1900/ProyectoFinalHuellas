@@ -244,8 +244,9 @@ public class AppHuellas {
 		}
 	}
 	private static List<String> addAnimal() {
+		sc.nextLine();
 		System.out.println("Introduce el nombre del animal");
-		String nombre = sc.next();
+		String nombre = sc.nextLine();
 		String fecha;
 		boolean correcto = false;
 		do {
