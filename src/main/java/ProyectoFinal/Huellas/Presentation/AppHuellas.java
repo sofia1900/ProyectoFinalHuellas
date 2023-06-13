@@ -261,7 +261,7 @@ public class AppHuellas {
 		boolean ok;
 		do {
 			System.out.println("Introduce el sexo del animal: 'M' o 'H'");
-			sexo = sc.next();
+			sexo = sc.next().toUpperCase();
 			ok = validarSexo(sexo);
 		}while (ok == false);
 		
