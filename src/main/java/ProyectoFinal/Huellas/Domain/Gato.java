@@ -22,8 +22,8 @@ public class Gato extends Animal{
 	
 	@Override
 	public String toString() {
-		return "Gato [virus=" + virus + ", id=" + id + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", sexo="
-				+ sexo + "]";
+		return "Gato [ id= " + id + ", nombre= " + nombre + ", fechaNac= " + fechaNac + ", sexo= "
+				+ sexo + ", virus= " + virus + " ]";
 	}
 	
 	

@@ -106,7 +106,6 @@ public class Conexion {
 			
 			if (tipo.equals("gato")) {
 				try {
-					Gato g = buscarGato(id);
 					eliminarGato(id);
 				}catch(Exception e) {
 					System.out.println("El animal no existe");
@@ -114,7 +113,6 @@ public class Conexion {
 				
 			}else{
 				try {
-					Perro p = buscarPerro(id);
 					eliminarPerro(id);
 				}catch (Exception e) {
 					System.out.println("El enimal no existe");
@@ -215,6 +213,9 @@ public class Conexion {
 			p.setApellidos(apellidos);
 		}
 		
+		result.close();
+		stat.close();
+		
 		return p;
 		
 	}
@@ -280,6 +281,9 @@ public class Conexion {
 			
 		}
 		
+		result.close();
+		stat.close();
+		
 		return adopciones;
 	}
 	
@@ -305,6 +309,9 @@ public class Conexion {
 			p.setApellidos(apellidos);
 		}
 		
+		result.close();
+		stat.close();
+		
 		return p;
 		
 	}
@@ -328,12 +335,15 @@ public class Conexion {
 			String direccion = result.getString("direccion");
 			
 			
-			adopt.setId(p.getId());
+			adopt.setId(idA);
 			adopt.setNombre(p.getNombre());
 			adopt.setApellidos(p.getApellidos());
 			adopt.setDni(p.getDni());
 			adopt.setFechaNac(fecha);
 			adopt.setDireccion(direccion);
+			
+			result.close();
+			stat.close();
 			
 		}else {
 			System.out.println("El adoptante no existe");
@@ -352,23 +362,21 @@ public class Conexion {
 		ResultSet result = stat.executeQuery();
 		
 		int id;
-		String raza;
-		boolean amigable;
 		
 		List<Perro> perros = new ArrayList<>();
 		
 		while (result.next()) {
 			id = result.getInt("id");
-			raza = result.getString("raza");
-			amigable = result.getBoolean("amigable");
-			
-			
+					
 			Perro perro = buscarPerro(id);
 			if (!perro.isAdoptado()) {
 				perros.add(perro);
 			}
 			
 		}
+		
+		result.close();
+		stat.close();
 		
 		return perros;
 	}
@@ -381,13 +389,11 @@ public class Conexion {
 		ResultSet result = stat.executeQuery();
 		
 		int id;
-		boolean virus;
 		
 		List<Gato> gatos = new ArrayList<>();
 		
 		while (result.next()) {
 			id = result.getInt("id");
-			virus = result.getBoolean("virus");
 			
 			Gato gatito = buscarGato(id);
 			if (!gatito.isAdoptado()) {
@@ -395,7 +401,11 @@ public class Conexion {
 			}
 			
 		}
-			return gatos;
+		
+		result.close();
+		stat.close();
+		
+		return gatos;
 		
 	}
 
@@ -433,6 +443,9 @@ public class Conexion {
 			System.out.println("El animal no existe");
 		}
 		
+		result.close();
+		stat.close();
+		
 		return animal;
 		
 	}
@@ -455,7 +468,7 @@ public class Conexion {
 			String raza = result.getString("raza");
 			boolean amigable = result.getBoolean("amigable");
 			
-			p.setId(animal.getId());
+			p.setId(idP);
 			p.setNombre(animal.getNombre());
 			p.setFechaNac(animal.getFechaNac());
 			p.setSexo(animal.getSexo());
@@ -483,12 +496,16 @@ public class Conexion {
 			int idGato = result.getInt("id");
 			boolean virus = result.getBoolean("virus");
 			
-			g.setId(animal.getId());
+			g.setId(idGato);
 			g.setNombre(animal.getNombre());
 			g.setFechaNac(animal.getFechaNac());
 			g.setSexo(animal.getSexo());
 			g.setAdoptado(animal.isAdoptado());
 			g.setVirus(virus);
+			
+			result.close();
+			stat.close();
+			
 		}
 		
 		return g;

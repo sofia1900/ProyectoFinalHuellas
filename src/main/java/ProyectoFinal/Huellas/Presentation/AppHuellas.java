@@ -50,16 +50,17 @@ public class AppHuellas {
 		do {
 			
 			try {
-				
+				System.out.println("");
 				System.out.println("-- MENU --");
 				System.out.println("1. Nuevo animal");
 				System.out.println("2. Eliminar animal");
 				System.out.println("3. Listar gatos");
 				System.out.println("4. Listar perros");
-				System.out.println("5. Nueva adoptante");
+				System.out.println("5. Nuevo adoptante");
 				System.out.println("6. Crear nueva adopcion");
 				System.out.println("7. Listar adopciones");
 				System.out.println("8. Salir");
+				System.out.println("");
 				
 				opc = sc.nextInt();
 				
