@@ -119,8 +119,6 @@ public class Conexion {
 				}
 				
 			}
-		}else {
-			System.out.println("El animal no existe");
 		}
 	}
 		//eliminar de gato/perro
